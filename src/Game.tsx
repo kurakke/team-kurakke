@@ -1,9 +1,9 @@
-import React from "react";
-
+import { useNavigate } from "react-router-dom";
 const Game = () => {
+  const navigate = useNavigate();
   return (
     <div>
-      <div></div>
+      <h2>GamePage</h2>
     </div>
   )
 }

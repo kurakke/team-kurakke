@@ -3,16 +3,13 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import Main from "./Main"
+import Rooting from "./Rooting"
+import Game from './Game';
+import { Route, BrowserRouter, Routes } from 'react-router-dom';
+import { createRoot } from 'react-dom/client';
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(
-  <React.StrictMode>
-    <Main />
-  </React.StrictMode>
-);
+const root = createRoot(document.getElementById('root')!);
+root.render(<Rooting />)
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
