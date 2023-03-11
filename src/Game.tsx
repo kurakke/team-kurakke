@@ -49,7 +49,7 @@ const Game = () => {
         return
       } else {
         console.log(isClicked);
-        setLeft((prev) => (prev % 320) + 1)
+        setLeft((prev) => (prev % 340) + 1)
       }
     }, 1);
     return () => window.clearInterval(changeImagePosition);
@@ -59,7 +59,7 @@ const Game = () => {
   }, []);
   const topImage = (left: number) => css`
     position: absolute;
-    width: 270px;
+    width: 250px;
     height: 160px;
     left: ${left + 480}px
   `
