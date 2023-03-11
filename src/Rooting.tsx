@@ -4,7 +4,6 @@ import { css } from "@emotion/react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Main from "./Main";
 import Game from "./Game";
-import Game2 from "./Game2";
 const Rooting = () => {
   return (
     <BrowserRouter>
