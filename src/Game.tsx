@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import bottom from "./images/bottom.png"
 import top from "./images/top.png"
-import { setInterval } from "timers/promises";
   const all = css`
     width: 100vw;
     height: 100vh;
