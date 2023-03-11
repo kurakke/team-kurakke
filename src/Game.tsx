@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import bottom from "./images/bottom.png"
 import top from "./images/top.png"
+import { useCallback } from "react";
   const all = css`
     width: 100vw;
     height: 100vh;
@@ -37,6 +38,11 @@ const Game = () => {
   const changeIsClicked = () => {
     setIsClicked((prev) => !prev)
   }
+  const spaceKeyDown = useCallback((event:KeyboardEvent) => {
+    if(event.code === 'Space') {
+      changeIsClicked()
+    }
+  }, [])
   useEffect(() => {
     const changeImagePosition = window.setInterval(() => {
       if(isClicked) {
@@ -48,7 +54,9 @@ const Game = () => {
     }, 1);
     return () => window.clearInterval(changeImagePosition);
   }, [isClicked]);
-
+  useEffect(() => {
+    document.addEventListener("keydown", spaceKeyDown, false);
+  }, []);
   const topImage = (left: number) => css`
     position: absolute;
     width: 270px;
