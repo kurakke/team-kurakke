@@ -63,6 +63,7 @@ const Game = () => {
       return "遅い"
     }
   }
+  const [speed, setSpeed] = useState<number>(1)
   const handleAnswerChecker = useCallback((left:number) => {
     setLeft((prev) => {
       console.log(answerChecker(prev));
@@ -84,12 +85,21 @@ const Game = () => {
       } else {
         setLeft((prev) => (prev % 340) + 1)
       }
-    }, 100);
+    }, speed);
     return () => window.clearInterval(changeImagePosition);
-  }, [isClicked]);
+  }, [isClicked, speed]);
   useEffect(() => {
     document.addEventListener("keydown", spaceKeyDown, false);
   }, []);
+  const speedMeter = (speed: number) => {
+    if(speed === 1) {
+      return "速い"
+    } else if(speed === 5) {
+      return "普通"
+    } else {
+      return "遅い"
+    }
+  }
   const topImage = (left: number) => css`
     position: absolute;
     width: 250px;
@@ -141,16 +151,26 @@ const Game = () => {
   //   setAnswer( responseText );
   // }
   return (
-    <><div css={all}>
-      <div css={title} onClick={() => {
-        changeIsClicked();
-      } }>Pitatto</div>
-
-    <div css={game} onClick={changeIsClicked}>
-        <img src={bottom} alt="bottom" css={bottomImage} />
-        <img src={top} alt="top" css={topImage(left)} />
+    <>
+      <div css={all}>
+        <div css={title} onClick={() => {
+          changeIsClicked();
+        } }>Pitatto</div>
+        <div css={game} onClick={changeIsClicked}>
+          <img src={bottom} alt="bottom" css={bottomImage} />
+          <img src={top} alt="top" css={topImage(left)} />
+        </div>
+        <div onClick={() => {
+          if(speed === 1) {
+            setSpeed(5)
+          } else if(speed === 5) {
+            setSpeed(20)
+          } else {
+            setSpeed(1)
+          }
+        }}>speed:{speedMeter(speed)}</div>
       </div>
-    </div></>
+    </>
   )
 }
 
