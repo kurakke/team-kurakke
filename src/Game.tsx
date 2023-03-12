@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import bottom from "./images/bottom.png"
 import top from "./images/top.png"
 import { useCallback } from "react";
+import axios from 'axios';
   const all = css`
     width: 100vw;
     height: 100vh;
@@ -32,6 +33,7 @@ import { useCallback } from "react";
     width: 100%;
     height: 300px;
   `
+  const API_KEY = "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"
 const Game = () => {
   const [left, setLeft] = useState<number>(0);
   const [isClicked, setIsClicked] = useState<boolean>(false)
