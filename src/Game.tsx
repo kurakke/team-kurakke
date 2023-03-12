@@ -28,7 +28,7 @@ import { Module } from "module";
   `
   const game = css`
     width: 550px;
-    height: 500px;
+    height: 300px;
     background-color: red;
     border-radius: 20px;
     margin-top: 30px;
@@ -37,6 +37,7 @@ import { Module } from "module";
     justify-content:center;
   `
   const bottomImage = css`
+  border-radius: 20px;
     width: 100%;
     height: 300px;
   `
@@ -47,9 +48,28 @@ const Game = () => {
   const changeIsClicked = () => {
     setIsClicked((prev) => !prev)
   }
+  const pittariLeft: number = 167
+  const answerChecker = (left: number) => {
+    if(left === pittariLeft) {
+      return "完全一致"
+    } else if (pittariLeft - 3 < left && pittariLeft + 3 > left) {
+      return "ほぼ一致"
+    } else if (pittariLeft > left) {
+      return "速い"
+    } else {
+      return "遅い"
+    }
+  }
+  const handleAnswerChecker = useCallback(() => {
+    console.log(answerChecker(left));
+    console.log(left);
+    console.log(pittariLeft);
+  },[isClicked, left])
+
   const spaceKeyDown = useCallback((event:KeyboardEvent) => {
     if(event.code === 'Space') {
       changeIsClicked()
+      handleAnswerChecker()
     }
   }, [])
   useEffect(() => {
@@ -57,7 +77,6 @@ const Game = () => {
       if(isClicked) {
         return
       } else {
-        console.log(isClicked);
         setLeft((prev) => (prev % 340) + 1)
       }
     }, 1);
@@ -72,6 +91,7 @@ const Game = () => {
     height: 160px;
     left: ${left + 480}px
   `
+
   // const API_URL = ""
   // const MODEL = ""
   // const chat = async ( message:message ) => {
@@ -119,8 +139,6 @@ const Game = () => {
     <><div css={all}>
       <div css={title} onClick={() => {
         changeIsClicked();
-        console.log(isClicked);
-
       } }>Pitatto</div>
 
     <div css={game} onClick={changeIsClicked}>
