@@ -15,6 +15,7 @@ import { Module } from "module";
   //   target: HTMLButtonElement;
   // }
   const all = css`
+  background: linear-gradient(to bottom right, #FF6633 0%, #FF3300 50%, #9900CC 100%);
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -48,9 +49,11 @@ const Game = () => {
   const changeIsClicked = () => {
     setIsClicked((prev) => !prev)
   }
-  const pittariLeft: number = 167
+  const pittariLeft: number = 167;
+  const [isPerfect, setIsPerfect] = useState<boolean>(false)
   const answerChecker = (left: number) => {
     if(left === pittariLeft) {
+      setIsPerfect(true)
       return "完全一致"
     } else if (pittariLeft - 3 < left && pittariLeft + 3 > left) {
       return "ほぼ一致"
@@ -60,16 +63,18 @@ const Game = () => {
       return "遅い"
     }
   }
-  const handleAnswerChecker = useCallback(() => {
-    console.log(answerChecker(left));
-    console.log(left);
+  const handleAnswerChecker = useCallback((left:number) => {
+    setLeft((prev) => {
+      console.log(answerChecker(prev));
+      return prev
+    })
     console.log(pittariLeft);
   },[isClicked, left])
 
   const spaceKeyDown = useCallback((event:KeyboardEvent) => {
     if(event.code === 'Space') {
       changeIsClicked()
-      handleAnswerChecker()
+      handleAnswerChecker(left)
     }
   }, [])
   useEffect(() => {
@@ -79,7 +84,7 @@ const Game = () => {
       } else {
         setLeft((prev) => (prev % 340) + 1)
       }
-    }, 1);
+    }, 100);
     return () => window.clearInterval(changeImagePosition);
   }, [isClicked]);
   useEffect(() => {
